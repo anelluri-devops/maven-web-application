@@ -1,0 +1,38 @@
+node
+{
+
+def mavenHome = tool name: "maven3.8.5"
+
+stage('CheckoutCode')
+{
+git branch: 'development', credentialsId: 'c0968b8b-0e37-42c2-b3c2-7b8afb23e234', url: 'https://github.com/anelluri-devops/maven-web-application.git'
+}
+
+stage('Build')
+{
+sh "${mavenHome}/bin/mvn clean package"
+}
+/*
+stage('SonarQubeReport')
+{
+sh "${mavenHome}/bin/mvn sonar:sonar"
+}
+stage('UploadartifactNexus')
+{
+sh "${mavenHome}/bin/mvn deploy"
+}
+stage ('DeployAppIntoTomcat')
+{
+sshagent(['de7229a9-5f9a-4318-b22a-68d94258f108']) 
+{
+sh "scp -o StrictHostKeyChecking=no target/maven-web-application.war ec2-user@172.31.10.15:/opt/tomcat9/webapps/"
+}
+}
+stage('SendEmailNotification')
+{
+mail bcc: '', body: 'Build Successful', cc: 'nellurianvesh171@gmail.com', from: '', replyTo: '', subject: 'Build successful', to: 'anveshnelluri2809@gmail.com'
+}
+
+*/
+
+}
